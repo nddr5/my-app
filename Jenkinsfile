@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo "====++++  Nexus Deployment ++++===="
                 // Use 'nexus' as the hostname to connect to the Nexus service within Docker Compose
-                sh "${mvn} deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -Dsonar.skip=true -DskipITs=true -Dmaven.repo.local=/var/jenkins_home/.m2/repository -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/my-repository/"
+                sh "${mvn} deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -Dsonar.skip=true -DskipITs=true -Dmaven.repo.local=/var/jenkins_home/.m2/repository -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/my-repository/ -DrepositoryId=nexus"
             }
         }
     }
