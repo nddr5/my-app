@@ -32,9 +32,9 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 echo "====++++  Deploying to Tomcat ++++===="
-                // Replace 'TOMCAT_URL' with the URL of your Tomcat server (e.g., http://localhost:8080)
+                // Replace 'TOMCAT_URL' with the service name of your Tomcat container (e.g., http://tomcat:8080)
                 // Replace 'in/javahome/myweb/0.0.9/myweb-0.0.9.war' with the actual path of your WAR file in Nexus
-                sh "curl -v -u tomcat:tomcat -T http://nexus:8081/repository/my-repository/in/javahome/myweb/0.0.9/myweb-0.0.9.war http://tomcat:8080/manager/text/deploy?path=/CONTEXT_PATH"
+                sh "curl -L -v -u tomcat:tomcat -T http://nexus:8081/repository/my-repository/in/javahome/myweb/0.0.9/myweb-0.0.9.war http://tomcat:8080/manager/text/deploy?path=/CONTEXT_PATH"
             }
         }
 
