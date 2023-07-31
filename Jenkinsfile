@@ -1,4 +1,4 @@
-pipeline {
+update this pipeline : pipeline {
     agent any
     tools {
         maven 'Maven'
@@ -29,14 +29,14 @@ pipeline {
                 sh "${mvn} deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -Dsonar.skip=true -DskipITs=true -Dmaven.repo.local=/var/jenkins_home/.m2/repository -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/my-repository/ -DrepositoryId=nexus"
             }
         }
+        
         stage('Deploy to Tomcat') {
             steps {
                 echo "====++++  Deploying to Tomcat ++++===="
-                // Replace 'TOMCAT_URL' with the service name of your Tomcat container (e.g., http://tomcat:8080)
-                // Replace 'in/javahome/myweb/0.0.9/myweb-0.0.9.war' with the actual path of your WAR file in Nexus
-                sh "get --http-user=TOMCAT_USER --http-password=TOMCAT_PASSWORD --no-check-certificate --auth-no-challenge --secure-protocol=TLSv1 http://TOMCAT_URL/manager/text/deploy?path=/CONTEXT_PATH --header='Content-Type:application/octet-stream' --post-file=http://nexus:8081/repository/my-repository/in/javahome/myweb/0.0.9/myweb-0.0.9.war"
-            }
+                // Replace 'TOMCAT_URL' with the URL of your Tomcat server (e.g., http://localhost:8080)
+                // Replace 'your-war-file-name.war' with the name of your generated WAR file
+                sh "curl -L -u tomcat:tomcat -T http://nexus:8081/repository/my-repository/in/javahome/myweb/0.0.9/myweb-0.0.9.war http://tomcat:8080/manager/text/deploy?path=/CONTEXT_PATH"
         }
-
-    }
+     }
 }
+} 
