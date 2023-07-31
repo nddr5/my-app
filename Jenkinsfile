@@ -29,6 +29,14 @@ pipeline {
                 sh "${mvn} deploy -Dmaven.test.skip=true -Dmaven.install.skip=true -Dsonar.skip=true -DskipITs=true -Dmaven.repo.local=/var/jenkins_home/.m2/repository -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/my-repository/ -DrepositoryId=nexus"
             }
         }
+stage('Deploy') {
+            steps {
+            script {
+                deploy adapters:[tomcat8(credentialsId: 'tomcatcred', path: '', url: 'http://tomcat:8082')], contextPath: '/pipeline', onFailure: false, war: 'target/*.war'    
+            }
+            }
+        }
+        
         
 }
 } 
