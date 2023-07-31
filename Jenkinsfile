@@ -30,13 +30,5 @@ pipeline {
             }
         }
         
-        stage('Deploy to Tomcat') {
-            steps {
-                echo "====++++  Deploying to Tomcat ++++===="
-                // Replace 'TOMCAT_URL' with the URL of your Tomcat server (e.g., http://localhost:8080)
-                // Replace 'your-war-file-name.war' with the name of your generated WAR file
-                sh "curl -L -u tomcat:tomcat -T http://nexus:8081/repository/my-repository/in/javahome/myweb/0.0.9/myweb-0.0.9.war http://tomcat:8080/manager/text/deploy?path=/CONTEXT_PATH"
-        }
-     }
 }
 } 
