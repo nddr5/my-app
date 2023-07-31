@@ -1,4 +1,4 @@
-update this pipeline : pipeline {
+pipeline {
     agent any
     tools {
         maven 'Maven'
